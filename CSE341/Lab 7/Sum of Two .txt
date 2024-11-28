@@ -1,0 +1,97 @@
+.MODEL SMALL
+ 
+.STACK 100H
+
+.DATA
+
+ST1 db "1st Number: $"
+ST2 db "2nd Number: $"
+ST3 db "THE SUM OF $"
+ST4 db " and $"
+ST5 db " is $"  
+ 
+
+
+
+.CODE
+MAIN PROC
+
+;iniitialize DS
+
+MOV AX,@DATA
+MOV DS,AX      
+
+;Code here
+
+MOV AH,9
+LEA DX, ST1
+INT 21H
+
+
+MOV AH,1
+INT 21H
+MOV CH,AL
+MOV BL,CH
+
+MOV AH,2
+MOV DL, 0DH
+INT 21H  
+MOV DL,0AH
+INT 21H
+
+MOV AH,9
+LEA DX, ST2
+INT 21H
+
+
+MOV AH,1
+INT 21H
+MOV CL,AL ;INPUT
+
+
+
+ADD CH,CL
+SUB CH,48
+
+;PRINT
+
+MOV AH,2
+MOV DL, 0DH
+INT 21H  
+MOV DL,0AH
+INT 21H
+ 
+MOV AH,9
+LEA DX, ST3
+INT 21H
+
+MOV AH,2
+MOV DL,BL
+INT 21H
+
+MOV AH,9
+LEA DX, ST4
+INT 21H
+
+MOV AH,2
+MOV DL,CL
+INT 21H
+
+MOV AH,9
+LEA DX, ST5
+INT 21H
+
+ 
+
+
+MOV AH,2
+MOV DL,CH
+INT 21H
+
+ 
+
+
+;exit to DOS    
+
+MAIN ENDP
+    END MAIN

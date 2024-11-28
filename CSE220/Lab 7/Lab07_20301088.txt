@@ -1,0 +1,87 @@
+class keyindex:
+    def __init__(self, a):
+        self.k = []
+        self.a = a
+        self.negative_num = 0
+        minvalue = a[0]
+        maxvalue = a[0]
+        for val in a[1:]:
+            if val < minvalue:
+                minvalue = val
+            if val > maxvalue:
+                maxvalue = val
+        if minvalue < 0:
+            self.negative_num = minvalue * -1
+
+        self.k = [0] * (maxvalue + self.negative_num + 1)
+        for val in a:
+            self.k[val + self.negative_num] += 1
+
+    def search(self, val):
+        if val in self.k:
+            print('False')
+        else:
+            print('True',val)
+
+
+    def sort(self):
+        sortedarray = []
+        for i in range(len(self.k)):
+            for j in range(self.k[i]):
+                sortedarray.append(i - self.negative_num)
+        return sortedarray
+
+
+g = keyindex([-1, -20, 10, -3, 4, 6])
+print(g.search(-1))
+print(g.sort())
+
+
+#
+# ==================================================================
+# task 2
+
+
+class hashTable:  # class
+    def __init__(self):
+        self.size = 9
+        self.HASHTABLE = [0] * self.size
+        self.elementCount = 0
+
+    def hashFunction(self, element):
+        count = 0
+        sum = 0
+        alphabates=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+        for i in element:
+            if i not in ('A', 'E', 'I', 'O', 'U', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'):
+                count += 1
+            else:
+                if i not in alphabates:
+                    sum += ord(i)
+        value = (count * 24 + sum)
+        return value % self.size
+
+    def insert(self, element):
+        stored = False
+        position = self.hashFunction(element)
+        if self.HASHTABLE[position] == 0:
+            self.HASHTABLE[position] = element
+            stored = True
+            self.elementCount += 1
+        else:
+            if self.HASHTABLE[position] != 0:
+                position += 1
+            self.HASHTABLE[position] = element
+            stored = True
+            self.elementCount += 1
+        return stored
+
+    def display(self):
+        for i in range(self.size):
+            print(i," -> ", self.HASHTABLE[i])
+
+a = hashTable()
+words = ["ST1E89B8A32","ASHRZDG18492"]
+for i in words:
+    a.insert(i)
+a.display()

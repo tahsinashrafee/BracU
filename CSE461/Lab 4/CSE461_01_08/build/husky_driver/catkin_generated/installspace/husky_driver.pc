@@ -1,0 +1,8 @@
+prefix=/home/ubuntu/CSE461_01_08/install
+
+Name: husky_driver
+Description: Description of husky_driver
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

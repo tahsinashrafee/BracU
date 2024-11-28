@@ -1,0 +1,199 @@
+# Task-1
+# a
+def find_factorial(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return n * find_factorial(n - 1)
+
+
+print(find_factorial(4))
+
+
+# b
+def find_fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return find_fibonacci(n - 1) + find_fibonacci(n - 2)
+
+
+print(find_fibonacci(7))
+
+
+# c
+def array(a, start, end):
+    if not end != 0:
+        return -1
+    elif start < end:
+        print(a[start])
+        array(a, start + 1, end)
+    else:
+        return -1
+
+
+array([1, 2, 3, 4], 0, 4)
+
+
+# d
+def powerN(number, power):
+    if number == 0:
+        return 0
+    elif number == 1:
+        return 1
+    elif power == 0:
+        return 1
+    elif power == 1:
+        return number
+
+    else:
+        return number * powerN(number, power - 1)
+
+
+print(powerN(3, 3))
+
+
+# Task-2
+# a
+def decimal_to_binary(n):
+    if n != 0:
+        return (n % 2) + (10 * decimal_to_binary(n // 2))
+    else:
+        return 0
+
+
+print(decimal_to_binary(10))
+
+
+# b
+class Node:
+    def __init__(self, val, nxt=None):
+        self.value = val
+        self.next = nxt
+
+
+def add(head):
+    if head is None:
+        return 0
+    else:
+        return add(head.next) + head.value
+
+
+n = Node(1, Node(2, Node(3, Node(4, None))))
+print(add(n))
+
+
+# c
+class Node:
+    def __init__(self, val, next=None):
+        self.value = val
+        self.next = next
+
+
+def reverse(head):
+    if head is not None:
+        reverse(head.next)
+        print(head.value)
+    else:
+        return
+
+
+n = Node(1, Node(2, Node(3, Node(4, None))))
+reverse(n)
+
+
+# Task-3
+def hocBuilder(height):
+    if height == 0:
+        return 0
+    elif height == 1:
+        return 8
+    else:
+        return 5 + hocBuilder(height - 1)
+
+
+taking_input_levels = int(input("Enter levels: "))
+print(hocBuilder(taking_input_levels))
+
+
+# Task -4
+# a
+def col(a, b):
+    if a != 0:
+        print(b, end=" ")
+        b += 1
+        col(a - 1, b)
+    else:
+        return
+
+
+def taking_input(a, b=1):
+    if a != 0:
+        col(b, 1)
+        print()
+        taking_input(a - 1, b + 1)
+    else:
+        return
+
+
+taking_input(int(input('Give input: ')))
+
+
+# b
+def cap(a_n):
+    if a_n != 0:
+        print(" ", end=" ")
+        cap(a_n - 1)
+    else:
+        return
+
+
+def number(i, j):
+    if i != 0:
+        number(i - 1, j + 1)
+        print(j, end=" ")
+    else:
+        return
+
+
+def patt(inp_n, i):
+    if inp_n != 0:
+        cap(inp_n - 1)
+        number(i - inp_n + 1, 1)
+        print()
+        patt(inp_n - 1, i)
+    else:
+        return
+
+
+input_int = int(input('Give input: '))
+
+patt(input_int, input_int)
+
+
+# Task -5
+class FinalQ:
+    def print(self, given_array, given_index):
+        if given_index >= len(given_array):
+            return
+        profit = self.calcProfit(given_array[given_index])
+        print(given_index + 1, ". Investment:", given_array[given_index], "; Profit:", profit)
+        self.print(given_array, given_index + 1)
+
+    def calcProfit(self, investment):
+        if investment <= 25000:
+            return 0
+        else:
+            temp = investment - 100000
+            temp = temp * (8 / 100)
+            return temp + 3375.0
+
+
+array = [25000, 100000, 250000, 350000]
+f = FinalQ()
+f.print(array, 0)
+

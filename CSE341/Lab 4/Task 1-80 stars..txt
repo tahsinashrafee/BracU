@@ -1,0 +1,19 @@
+.model small
+.stack 100h
+
+.data
+star db '*'
+
+.code
+mov ax, @data
+mov ds, ax
+
+mov cx, 80 
+    
+star_draw:
+mov ah, 02h    
+mov dl, star   
+int 21h        
+loop star_draw
+
+hlt

@@ -1,0 +1,187 @@
+#Task-1
+#i
+class Node:
+    def __init__(self, int_value, next_ref):
+        self.val = int_value
+        self.uc = next_ref
+#ii
+#Task-2
+class MyList:
+    def __init__(self, a):
+        self.start = None
+        end = None
+        for i in a:
+            jc = Node(i, None)
+            if self.start == None:
+                self.start = jc
+                end = jc
+            else:
+                end.uc = jc
+                end = jc
+
+#2
+    def showList(self):
+        v = self.start
+        if self.start == None:
+            print("Empty list")
+        else:
+            while v!= None:
+                print(v.val, end=" ")
+                v = v.uc
+
+#3
+    def isEmpty(self):
+        if self.start == None:
+            return True
+        else:
+            return False
+#4
+    def clear(self):
+        node=self.start
+        if self.start is None:
+            print("Clear")
+        else:
+        self.start=None
+#5
+    def insert(self, newElement):
+        self.start
+        new= Node(newElement, None)
+        if self.start == None:
+            self.start = new
+
+        else:
+            end_2 = self.start
+            while end_2.uc:
+                end_2 = end_2.uc
+            end_2.uc = new
+#6
+    def insert_at(self, newElement, index):
+        jc = self.start
+        new = Node(newElement, None)
+        if index < 0:
+            print("Invalid index")
+        elif index == 0:
+            new.uc=self.start
+            self.start= new
+        else:
+            for i in range(1, index):
+                if i==index:
+                    jc.val=new
+                    jc=jc.uc
+#7
+    def remove(self, deletekey):
+        x = self.start
+        z = self.start
+        if (x != None):
+            self.start=x.end_1
+            self.x=None
+            return
+        while(x != None):
+            if x.data == deletekey:
+                break
+            z = x
+            x=x.next
+        if(x== None):
+            return
+        z.uc = x.uc
+        x= None
+        return 
+#Task-3
+#1
+    def FindEven(self):
+        my_list = []
+        i = self.start
+        while (i != None):
+            if i % 2 == 0:
+                my_list.append(i.elem)
+            i = i.next_ref
+        for val in my_list:
+            print(val, end=" ")
+        print()
+#2
+    def Available(self, element):
+        v = self.start
+        there = False
+        while v != None:
+            if v.value == element:
+                there = True
+            v = v.next
+        return there
+
+#3
+    def FindReverse(self):
+        backwards = ""
+        i = self.start
+        while (i != None):
+            backwards = str(i.element) + " " + backwards
+            i = i.next_ref
+        print(backwards)
+#4
+    def FindSort(self):
+        i = self.start
+        while (i != None):
+            min = i
+            j = i.next_ref
+            while (j != None):
+                if min.element > j.element:
+                    min = j
+                j = j.next_ref
+            temp = i.element
+            i.element = min.element
+            min.element = temp
+            i = i.next_ref
+        k = self.start
+        while (k != None):
+            print(k.elem, end=" ")
+            k = k.next_ref
+#5
+    def FindSum(self):
+        i = self.start
+        total = 0
+        while (i != None):
+            total += i.element
+            i = i.next_ref
+        print(total)
+#6
+    def DoRotate(self, times, side):
+        if side == "left":
+            for i in range(0, times, 1):
+                temp = self.start
+                self.start = self.start.next_ref
+                self.back_1.next_ref = temp
+                self.back_1 = self.back_1.next_ref
+                temp.next_ref = None
+        if side == "right":
+            for i in range(0, times):
+                a_1 = self.start
+                a_2 = a_1.next_ref
+                a_2 = a_2.next_ref
+                while (a_2 != None):
+                    a_1 = a_1.next_ref
+                    a_2 = a_2.next_ref
+                self.back_1.next_ref = self.start
+                self.start = self.back_1
+                self.back_1 = a_1
+                self.back_1.next_ref = None
+        else:
+            print("Null")
+            return
+        i = self.start
+        while (i != None):
+            print(i.a, end=" ")
+            i = i.next_ref
+
+my_list = [1, 2, 5, 3, 4]
+test = MyList(my_list)
+print(test.showList())
+test.isEmpty()
+test.clear()
+test.insert(2)
+test.insert_at(30, 3)
+test.remove(2)
+test.FindEven()
+test.FindReverse()
+test.FindSort()
+test.FindSum()
+test.DoRotate(2, "left")
+test.DoRotate(2, "right")

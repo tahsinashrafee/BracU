@@ -1,0 +1,37 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+a db 1,2,3,4,5
+b db 5 dup(?)
+.CODE
+MAIN PROC
+MOV AX,@DATA
+MOV DS,AX
+
+MOV CX,5
+MOV AH,1
+MOV si, 0
+
+array:
+INT 21H
+MOV b[si],al
+inc si
+LOOP array 
+
+
+MOV AH,2
+MOV DL, 0DH
+INT 21H  
+MOV DL,0AH
+INT 21H
+
+
+MOV AH,2        
+MOV si,0        
+MOV DL,b[si]
+INT 21H
+
+
+   
+    MAIN ENDP
+END MAIN

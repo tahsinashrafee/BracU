@@ -1,0 +1,67 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+ST1 DB "Enter Length: $"
+ST2 DB "Enter name: $"
+ST3 DB "OUTPUT: $"
+a db 1,2,3,4,5
+b dw ?
+.CODE
+MAIN PROC
+MOV AX,@DATA
+MOV DS,AX
+
+MOV AH,9
+LEA DX, ST1
+INT 21H
+
+MOV AH,1
+INT 21H
+MOV BL,AL
+SUB BL,30H
+MOV BH,0
+
+MOV AH,2
+MOV DL, 0DH
+INT 21H  
+MOV DL,0AH
+INT 21H
+
+MOV AH,9
+LEA DX, ST2
+INT 21H
+
+MOV CX,BX
+MOV AH,1
+MOV si, 0
+
+array:
+INT 21H
+MOV b[si],ax
+inc si
+LOOP array 
+
+
+MOV AH,2
+MOV DL, 0DH
+INT 21H  
+MOV DL,0AH
+INT 21H 
+
+MOV AH,9
+LEA DX, ST3
+INT 21H
+
+MOV AH,2
+MOV CX,BX
+MOV di,0
+print:
+MOV dx,b[di]
+INT 21H
+inc di
+LOOP print  
+
+
+   
+    MAIN ENDP
+END MAIN

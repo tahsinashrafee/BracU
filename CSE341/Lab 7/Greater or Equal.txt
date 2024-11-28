@@ -1,0 +1,93 @@
+.MODEL SMALL
+ 
+.STACK 100H
+
+.DATA
+
+ST1 db "Please enter a: $"
+ST2 db "Please enter b: $"  
+ST3 db "A is GREATER than B$"
+ST4 db "A is NOT GREATER than B$"
+ST5 db "A is EQUAL to B$"
+
+
+
+
+.CODE
+MAIN PROC
+
+;iniitialize DS
+
+MOV AX,@DATA
+MOV DS,AX      
+
+;Code here
+
+MOV AH,9
+LEA DX, ST1
+INT 21H
+
+
+MOV AH,1
+INT 21H
+MOV CH,AL
+
+MOV AH,2
+MOV DL, 0DH
+INT 21H  
+MOV DL,0AH
+INT 21H
+
+MOV AH,9
+LEA DX, ST2
+INT 21H
+
+
+MOV AH,1
+INT 21H
+MOV CL,AL ;INPUT
+
+;PRINT
+MOV AH,2
+MOV DL, 0DH
+INT 21H  
+MOV DL,0AH
+INT 21H
+
+
+CMP CH,CL
+
+JG GREATER
+JE EQUAL
+
+
+MOV AH,9
+LEA DX, ST4
+INT 21H
+JMP EXIT
+
+
+
+EQUAL:
+MOV AH,9
+LEA DX, ST5
+INT 21H
+JMP EXIT
+
+
+
+
+GREATER:
+MOV AH,9
+LEA DX, ST3
+INT 21H
+EXIT:
+
+
+
+
+
+;exit to DOS    
+
+MAIN ENDP
+    END MAIN

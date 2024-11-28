@@ -1,0 +1,99 @@
+For PC1,
+ipconfig /all
+ping 10.10.1.18
+tracert 10.10.1.18
+
+For PC3,
+ipconfig /all
+ping 10.10.1.98
+tracert 10.10.1.98
+
+For Router1,
+password: cisco
+enable 
+password: class
+show ip interface brief 
+show ip route 
+
+For Router3,
+password: cisco
+enable 
+password: class
+
+show ip interface brief 
+show ip route 
+
+For Router2,
+password: cisco
+enable 
+password: class
+show ip interface brief 
+conf t  
+int se0/0/0
+ip address 10.10.1.5 255.255.255.252
+
+
+For PC2,
+ipv6config /all
+ping 2001:DB8:1:4::2
+tracert 2001:DB8:1:4::2
+
+For PC4,
+ipv6config /all
+ping 2001:DB8:1:1::2
+tracert 2001:DB8:1:1::2
+
+
+For Router3,
+password: cisco
+enable
+password: class
+show ipv6 interface brief 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

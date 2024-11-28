@@ -1,0 +1,29 @@
+CODE SEGMENT
+    ASSUME CS:CODE,DS:CODE,SS:CODE
+    MOV AX,1234H
+    MOV BX,1000H
+    XOR SI,SI
+    MOV CX,4
+    L:
+    DIV BX
+    PUSH AX
+    PUSH DX
+    XOR DX,DX
+    MOV AX,BX
+    DIV TEN
+    MOV BX,AX
+    POP AX
+    LOOP L
+    MOV CX,4
+    XOR SI,SI
+    P:
+    POP ARRAY[SI]
+    ADD SI,2
+    LOOP P
+    HLT
+    
+    
+ARRAY DW 4(?)
+TEN DW 10H
+CODE ENDS
+END

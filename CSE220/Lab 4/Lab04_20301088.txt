@@ -1,0 +1,121 @@
+# Task 1
+def Condition(left_side, right_side):
+    if left_side == '[' and right_side == ']':
+        return True
+    if left_side == '{' and right_side == '}':
+        return True
+    if left_side == '(' and right_side == ')':
+        return True
+    else:
+        return False
+
+
+def ParenthesisChecker(input_string):
+    my_stack = []
+    list_1 = []
+    loop_count = 0
+    for i in input_string:
+        loop_count += 1
+        if i in ["[", "{", "("]:
+            my_stack.append(i)
+            list_1.append(loop_count)
+        if i in ["]", "}", ")"]:
+            if not my_stack:
+                return loop_count, i, "-not opened"
+            else:
+                stack_left_side = my_stack[-1]
+                index_left_side = list_1[-1]
+
+            if Condition(stack_left_side, i):
+                my_stack.pop()
+                list_1.pop()
+            else:
+                return index_left_side, stack_left_side, "-not closed"
+    return True
+
+
+def printC():
+    taking_input = input("Enter arithmetic expression: ")
+    tidx = ParenthesisChecker(taking_input)
+    if tidx is True:
+        print(f"This expression is correct")
+    else:
+        print(f"This expression is NOT correct.")
+        print(f"Error at character # {tidx}")
+printC()
+
+
+# Task 2
+class Node:
+    def __init__(self, data, idx):
+        self.data = data
+        self.idx = idx
+        self.next = None
+
+
+class Stack:
+    def __init__(self):
+        self.head = None
+
+    def isempty(self):
+        if self.head is not None:
+            return False
+        else:
+            return True
+
+    def push(self, data, idx):
+
+        if self.head is not None:
+            new_node = Node(data, idx)
+            new_node.next = self.head
+            self.head = new_node
+        else:
+            self.head = Node(data, idx)
+
+    def pop(self):
+        if self.isempty():
+            return None
+        else:
+            new_pop = self.head
+            self.head = self.head.next
+            new_pop.next = None
+            return new_pop.data
+
+    def peek(self):
+        if self.isempty():
+            return None
+        else:
+            return self.head.data, self.head.idx
+
+
+def ParenthesisCheckerLinkedList(input_string):
+    my_stack = Stack()
+    count = 0
+    for i in input_string:
+        count += 1
+        if i in ["[", "{", "("]:
+            my_stack.push(i, count)
+
+        if i in ["]", "}", ")"]:
+            if my_stack.isempty():
+                return count, i, "-not opened"
+            else:
+                left_side, idx = my_stack.peek()
+            if Condition(left_side, i):
+                my_stack.pop()
+            else:
+                return idx, left_side, "-not closed"
+    return True
+
+
+def printLinkedList():
+    taking_input = input("Enter arithmetic expression: ")
+    cidx = ParenthesisCheckerLinkedList(taking_input)
+    if cidx is True:
+        print(f"This expression is correct")
+    else:
+        print(f"This expression is NOT correct.")
+        print(f"Error at character # {cidx}")
+
+
+printLinkedList()

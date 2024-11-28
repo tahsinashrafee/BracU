@@ -1,0 +1,16 @@
+.model small
+.stack 100h
+
+.code
+mov cx,0
+
+mov ax,4
+mov bx,4
+
+multiloop:
+add cx,ax
+dec bx
+cmp bx,0
+jne multiloop
+
+hlt

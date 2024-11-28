@@ -1,0 +1,25 @@
+a.
+.code
+mov ax, 0     
+mov bx, 1     
+mov cx, 50  
+
+add:
+add ax, bx    
+add bx, 3     
+loop add
+
+hlt
+
+b.
+.code
+mov ax, 0     
+mov bx, 100    
+mov cx, 20  
+
+sub:
+add ax, bx    
+sub bx, 5     
+loop sub
+
+hlt

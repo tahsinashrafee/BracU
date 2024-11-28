@@ -1,0 +1,82 @@
+from OpenGL.GL import *
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
+import math
+
+
+def circle_algo(r, c0, c1):
+    d = 1 - r
+    x = 0
+    y = r
+    draw_eightway_plus_center(x, y, c0, c1)
+
+    while x < y:
+        if d < 0:
+            d = d + 2*x + 3   #East
+            x += 1
+        else:
+            d = d + 2*x -2*y + 5  #South East
+            x += 1
+            y = y - 1
+
+        draw_eightway_plus_center(x, y, c0, c1)
+
+def draw_circle(r, c0, c1):
+    circle_algo(r, c0, c1)        # outer circle
+    
+    circle_algo(r / 2, c0 + r / 2, c1) # Left inner circle
+    circle_algo(r / 2, c0 - r / 2, c1)  # right inner circle
+    circle_algo(r / 2, c0, c1 + r / 2)  # upper inner circle
+    circle_algo(r / 2, c0, c1 - r / 2)  # Lower inner circle
+    
+    var = math.sin(math.radians(45)) * r / 2
+
+    circle_algo(r / 2, c0 + var, c1 + var)    # Right upper
+    circle_algo(r / 2, c0 + var, c1 - var)    # Right lower
+    circle_algo(r / 2, c0 - var, c1 + var)    # Left upper
+    circle_algo(r / 2, c0 - var, c1 - var)    # Left lower
+
+
+def draw_eightway_plus_center(x, y, c0, c1):
+    draw_points(x + c0, y + c1)
+    draw_points(y + c0, x + c1)
+    draw_points(y + c0, -x + c1)
+    draw_points(x + c0, -y + c1)
+    draw_points(-x + c0, -y + c1)
+    draw_points(-y + c0, -x + c1)
+    draw_points(-y + c0, x + c1)
+    draw_points(-x + c0, y + c1)
+
+
+def draw_points(x, y):
+    glPointSize(1)
+    glBegin(GL_POINTS)
+    glVertex2f(x, y)
+    glEnd()
+
+
+def iterate():
+    glViewport(0, 0, 1000, 1000)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    glOrtho(0.0, 1000, 0.0, 1000, 0.0, 1.0)
+    glMatrixMode (GL_MODELVIEW)
+    glLoadIdentity()
+
+
+def showScreen():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    iterate()
+    glColor3f(0, 1, 1)
+    draw_circle(200, 500, 500)
+    glutSwapBuffers()
+
+
+glutInit()
+glutInitDisplayMode(GLUT_RGBA)
+glutInitWindowSize(1000, 1000)
+glutInitWindowPosition(0, 0)
+wind = glutCreateWindow(b"LAB3_20301088")
+glutDisplayFunc(showScreen)
+glutMainLoop()

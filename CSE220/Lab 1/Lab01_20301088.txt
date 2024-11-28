@@ -1,0 +1,192 @@
+#Linear Array
+#Task-1
+
+def shiftLeft(source, k):
+    for i in range(0,k):
+        for j in range(0,len(source)-1,1):
+            source[j]=source[j+1]
+        source[len(source)-1]=0
+source = [10, 20, 30, 40, 50, 60]
+shiftLeft(source, 3)
+print(source)
+
+#Task-2
+def rotateLeft(source, k):
+    for i in range(0,k):
+        x=source[0]
+        for j in range(1,len(source),1):
+            source[j-1]=source[j]
+        source[len(source)-1]=x
+source = [10, 20, 30, 40, 50, 60]
+rotateLeft(source, 3)
+print(source)
+
+#Task-3
+def remove(source, size, idx):
+    for i in range(idx, size - 1):
+        source[i] = source[i + 1]
+    source[size - 1] = 0
+
+source=[10,20,30,40,50,0,0]
+remove(source,5,2)
+print(source)
+
+#Task-4   
+def removeAll(source, size, element):
+    length = len(source)
+    for i in range(0, size):
+        if source[i] == element:
+            source[i] = 0
+
+    my_list = [0] * length
+    count = 0
+    for i in range(0,size):
+        if source[i] != 0:
+            my_list[count] = source[i]
+            count = count + 1
+    return my_list
+
+source = [10, 2, 30, 2, 50, 2, 2, 0, 0]
+print(removeAll(source, 7, 2))
+
+#Task-5
+taking_input = [10, 3, 1, 2, 10]
+condition = False
+
+for i in range(0, len(taking_input)):
+    initial_sum = 0
+    for j in range(0, i):
+        initial_sum += taking_input[j]
+    next_sum = 0
+    for k in range(i, len(taking_input)):
+        next_sum += taking_input[k]
+    if initial_sum == next_sum:
+        condition = True
+        break
+
+print(condition)
+
+#Task-6
+n = int(input("Enter value: "))
+def series(n):
+    my_list = [0] * (n * n)
+    for i in range(n):
+        value = ((i + 1) * n) - 1
+        for j in range(i + 1):
+            my_list[value - j] = j + 1
+    return my_list
+print(series(n))
+
+#Task-7
+def maxBunchCount(my_list):
+    max_count = 0
+    for i in range(0, len(my_list) - 1):
+        counter = 1
+        for j in range(i+1, len(my_list)):
+            if my_list[i] == my_list[j]:
+                counter += 1
+            else:
+                break
+        if counter > max_count:
+            max_count = counter
+
+    return max_count
+
+
+source = [1,1,2, 2, 1, 1,1,1]
+print(maxBunchCount(source))
+
+#Task-8
+def repetition(source):
+    new_list = []
+    condition = False
+    length = len(source)
+    for i in range(0,length):
+        if source[i] not in new_list:
+            new_list.append(source[i])
+    count_list = []
+    for j in range(0, len(new_list)):
+        count_list.append(source.count(new_list[j]))
+    for k in range(0,len(count_list)):
+        if source[k] != 1:
+            for l in range(k+1, len(count_list)):
+                if source[k]== source[l]:
+                    condition = True
+                else:
+                    condition = False
+    return condition
+source = [4,5,6,6,4,3,6,4]
+print(repetition(source))
+
+
+#Circular Array
+#Task-1
+def palindrome(source, start, size):
+    my_list = [0] * len(source)
+    fixed_s = start
+    last_v = (size + start - 1) % len(source)
+
+    for i in range(size):
+        my_list[fixed_s] = source[last_v]
+        fixed_s = (fixed_s+1) % len(my_list)
+        last_v = last_v-1
+        if last_v < 0:
+            last_v = len(source) - 1
+    if my_list == source:
+        print("True")
+    else:
+        print("False")
+
+
+source = [20, 10, 0, 0, 0, 10, 20, 30]
+palindrome(source, 5, 5)
+
+#Task-2
+def intersection(source_1, source_2, size_1, size_2, start_1, start_2):
+    my_list = []
+    fixed_s = start_1
+    i = 0
+    while i < size_1:
+        fixed_v = start_2
+        for j in range(size_2):
+            if source_1[fixed_s] == source_2[fixed_v]:
+                my_list = my_list + [source_1[fixed_s]]
+            fixed_v = (fixed_v+1) % len(source_2)
+        fixed_s = (fixed_s+1) % len(source_1)
+        i = i+1
+
+    print(my_list)
+
+
+source_1 = [40, 50, 0, 0, 0, 10, 20, 30]
+source_2 = [10, 20, 5, 0, 0, 0, 0, 0, 5, 40, 15, 25]
+intersection(source_1, source_2, 5, 7, 5, 8)
+
+#Task-3
+from random import choice as generator
+
+def chair_game(participants, start, size):
+    while size != 1:
+        l_p = len(participants)
+        random_g = generator([0, 1, 2, 3])
+        if random_g == 1:
+            x = start + (size // 2)
+            for i in range(x, start + size - 1):
+                participants[i % l_p] = participants[(i + 1) % l_p]
+            size -= 1
+            participants[(start + size) % l_p] = None
+            print("Players still in the game are: ", end=' ')
+            for i in range(start, start + size):
+                print(participants[i % l_p], end=' ')
+            print()
+        else:
+            wnr = participants[start]
+            for i in range(start, start + size - 1):
+                participants[i % l_p] = participants[(i + 1) % l_p]
+            participants[(start + size - 1) % l_p] = wnr
+    print("Winner:", participants[start])
+
+
+participants = [f"P{x}" for x in range(1, 8)]
+chair_game(participants, 5, 7)
+
