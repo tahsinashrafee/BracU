@@ -1,1 +1,1 @@
-# BracU
+This repository contains comprehensive lab solutions for various courses at Brac University, including CSE220, CSE221, CSE251, CSE260, CSE321, CSE330, CSE341, CSE420, CSE421, CSE422, CSE423, and CSE461. I hope you find it helpful!
